@@ -4,7 +4,7 @@ import ListEle from './ListEle';
 import './list.css';
 
 function List({ children, users = [], ...props }) {
-  console.log(props);
+  console.log(users);
 
   const ListEles = users.map((user, i) => {
     return (
@@ -19,7 +19,7 @@ function List({ children, users = [], ...props }) {
           <div className="list-content-wrapper">
             <h3 className="username">{ user.login }</h3>
             <a className="profile-info" href={ user.html_url}>Github Profile</a>
-            <p className="profile-info">{ user.contributions }</p>
+            <p className="profile-info">{ 'Number of contributions: ' + user.contributions }</p>
           </div>
       </ListEle>
     )
