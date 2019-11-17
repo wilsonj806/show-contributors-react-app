@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import List from '../components/List';
+
 function Display() {
   // Local State
   const [ users, setUsers ] = useState([]);
@@ -7,37 +9,29 @@ function Display() {
   // Fetch data on load
   useEffect(() => {
     async function asyncFetch() {
-      const body = await fetch('https://api.github.com/repos/microsoft/typescript/contributors').then(res => res.json());
-      console.log(body);
-      setUsers(body);
+      // Fetch from LocalStorage
+      const local = window.localStorage.getItem('ts-contrib');
+
+      // IF LocalStorage entry exists, set state
+      // ELSE make GET request for the asset, then save to LocalStorage and set state
+      if (local) {
+        setUsers(JSON.parse(local));
+      } else {
+        const body = await fetch('https://api.github.com/repos/microsoft/typescript/contributors').then(res => res.json());
+        const myStorage = window.localStorage;
+
+        myStorage.setItem('ts-contrib', JSON.stringify(body));
+        // console.log(body);
+        setUsers(body);
+      }
     }
 
     asyncFetch();
   }, [])
-  const ListEles = users.map((user) => {
-    return (
-      <li>
-        <img
-          style={{
-            width: '45%',
-            height: '45%'
-          }}
-          src={ user.avatar_url }
-          alt="avatar"
-        />
-        <a href={ user.html_url}>Github Profile</a>
-        <p>{ user.login }</p>
-        <p>{ user.contributions }</p>
-        <p>{ user.login }</p>
-      </li>
-    )
-  })
+
   return (
     <div className="user-display">
-      Hello There!
-      <ul>
-        { ListEles }
-      </ul>
+      <List users={ users }/>
     </div>
   )
 }
