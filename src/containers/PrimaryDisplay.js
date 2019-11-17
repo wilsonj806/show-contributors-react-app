@@ -31,6 +31,7 @@ function Display() {
 
   return (
     <div className="user-display">
+      <h1>TypeScript Repository Contributors</h1>
       <List users={ users }/>
     </div>
   )
