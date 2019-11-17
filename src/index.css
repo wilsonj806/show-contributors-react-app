@@ -12,3 +12,8 @@ body {
   background-color: transparent;
 }
 
+.contributor-list {
+  padding: 0 0rem;
+  margin: 0;
+  list-style: none;
+}

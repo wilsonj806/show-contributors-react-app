@@ -3,7 +3,7 @@ import React from 'react';
 function ListEle({ children, ...props}) {
 
   return (
-    <li className="">
+    <li className="single-profile">
       { children }
     </li>
   )

@@ -1,28 +1,31 @@
 import React from 'react';
 import ListEle from './ListEle';
 
+import './list.css';
+
 function List({ children, users = [], ...props }) {
   console.log(props);
 
-  const ListEles = users.map((user) => {
+  const ListEles = users.map((user, i) => {
     return (
-      <ListEle>
-        <img
-          style={{
-            width: '45%',
-            height: '45%'
-          }}
-          src={ user.avatar_url }
-          alt="avatar"
-        />
-        <h3>{ user.login }</h3>
-        <a href={ user.html_url}>Github Profile</a>
-        <p>{ user.contributions }</p>
+      <ListEle key={ i }>
+          <div className="avatar-wrapper">
+            <img
+              className="avatar"
+              src={ user.avatar_url }
+              alt="avatar"
+            />
+          </div>
+          <div className="list-content-wrapper">
+            <h3 className="username">{ user.login }</h3>
+            <a className="profile-info" href={ user.html_url}>Github Profile</a>
+            <p className="profile-info">{ user.contributions }</p>
+          </div>
       </ListEle>
     )
   })
   return (
-    <ul className="">
+    <ul className="contributor-list">
       { ListEles }
     </ul>
   )
