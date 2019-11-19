@@ -26,7 +26,7 @@ function Display() {
         // const myStorage = window.localStorage;
 
         // myStorage.setItem('ts-contrib', JSON.stringify(body));
-        // console.log(body);
+        console.log(body);
         setUsers(body);
       // }
     }
@@ -38,19 +38,15 @@ function Display() {
   useEffect(() => {
     const escape = escapeSlash(filter);
     if (filter !== '' && filtered.length !== 0) {
-      const filteredArr =  filtered.filter((student) => {
-        const fullName = student.firstName + ' ' + student.lastName;
-
+      const filteredArr =  filtered.filter((user) => {
         const regex = new RegExp(escape, 'gi');
-        return regex.test(fullName);
+        return regex.test(user.login);
       });
       setFiltered(filteredArr);
     } else if (filter !== '') {
-      const filteredArr =  users.filter((student) => {
-        const fullName = student.firstName + ' ' + student.lastName;
-
+      const filteredArr =  users.filter((user) => {
         const regex = new RegExp(escape, 'gi');
-        return regex.test(fullName);
+        return regex.test(user.login);
       });
       setFiltered(filteredArr);
     }
@@ -67,11 +63,11 @@ function Display() {
     const escape = escapeSlash(filterTag);
 
     if (filterTag !== '' && filtered.length !== 0) {
-      const filteredArr =  filtered.filter((student) => {
+      const filteredArr =  filtered.filter((user) => {
         const regex = new RegExp(escape, 'gi');
 
-        if (student.tags) {
-          const search = student.tags.some((tag) => regex.test(tag));
+        if (user.tags) {
+          const search = user.tags.some((tag) => regex.test(tag));
           return search;
         } else {
           return false;
@@ -79,11 +75,11 @@ function Display() {
       });
       setFiltered(filteredArr);
     } else if (filterTag !== '') {
-      const filteredArr =  users.filter((student) => {
+      const filteredArr =  users.filter((user) => {
         const regex = new RegExp(escape, 'gi');
 
-        if (student.tags) {
-          const search = student.tags.some((tag) => regex.test(tag));
+        if (user.tags) {
+          const search = user.tags.some((tag) => regex.test(tag));
           return search;
         } else {
           return false;
@@ -103,10 +99,10 @@ function Display() {
   }
 
   return (
-    <Provider value={{
-      users,
-      setUsers
-    }}>
+    <Provider
+      users={ users }
+      setUsers={ setUsers }
+    >
       <div className="display-card">
         <div className="head-wrapper">
           <h1 className="primary-heading">TypeScript Repository Contributors</h1>
@@ -126,7 +122,7 @@ function Display() {
           />
         </div>
         <div className="user-display">
-          <List users={ users }/>
+          <List users={ filter === '' && filterTag === '' ? users : filtered }/>
         </div>
       </div>
     </Provider>

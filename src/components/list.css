@@ -99,3 +99,34 @@
   border: 0px solid grey;
   border-bottom: 2px  solid #bbbbbb;
 }
+
+.btn--wrap {
+  width: 65px;
+  height: 65px;
+  margin: 0;
+  padding: 0;
+}
+
+.expand-btn {
+  width: 100%;
+  height: 100%;
+  font-size: 3rem;
+  font-weight: 600;
+  color: rgb(117, 117, 117);
+  border-radius: 5px;
+  border: 0px solid rgb(117, 117, 117);
+  background-color: white;
+  line-height: 18px;
+}
+
+.expand-btn:hover {
+  color: rgb(59, 59, 59);
+  border-radius: 5px;
+  border: 1px solid rgb(117, 117, 117);
+  background-color: white;
+}
+
+.expanded-display {
+  width: 100%;
+  margin-top: 1rem;
+}

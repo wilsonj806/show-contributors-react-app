@@ -4,11 +4,9 @@ import ListEle from './ListEle';
 import './list.css';
 
 function List({ children, users = [], ...props }) {
-  console.log(users);
-
   const ListEles = users.map((user, i) => {
     return (
-      <ListEle key={ i } user={ user }/>
+      <ListEle key={ i } user={ user } index={ i }/>
     )
   })
   return (

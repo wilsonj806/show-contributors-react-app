@@ -5,16 +5,17 @@ const Context = createContext({});
 const Provider = ({ children, users, setUsers }) => {
   // Github API index doesn't start at one, so we'll need to find another way
 
-  const accessUser = (str, githubId = undefined, state = []) => {
+  const accessUser = (str, index = undefined, state = []) => {
     if (str === '') return;
     const copy = [...state];
-    if (!copy[githubId]["tags"]) {
-      copy[githubId]["tags"] = [];
+    if (!copy[index]["tags"]) {
+      copy[index]["tags"] = [];
     }
-    copy[githubId]["tags"].push(str);
+    copy[index]["tags"].push(str);
 
     return copy;
   }
+
   return (
     <Context.Provider
       value={{
