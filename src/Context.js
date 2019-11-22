@@ -16,12 +16,29 @@ const Provider = ({ children, users, setUsers }) => {
     return copy;
   }
 
+  const addStars = async (uri = undefined, index = undefined, state = [], setState = undefined) => {
+    const copy = [ ...state ];
+    try {
+      const res = await fetch(uri).then(res => res.json());
+      console.log(res);
+      const starred = res.map(repo => {
+        const { html_url: url, name  } = repo;
+        return { url, name }
+      })
+      copy[index]["starred"] = starred;
+      setState(copy);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   return (
     <Context.Provider
       value={{
         users,
         setUsers,
-        accessUser
+        accessUser,
+        addStars
       }}
     >
       { children }

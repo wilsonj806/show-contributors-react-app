@@ -1,18 +1,29 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Context from '../Context';
 
 function ListEle({ children, user, ...props}) {
-  const { login, html_url, contributions, index, tags } = user;
+  const { login, html_url, contributions, index, tags, starred } = user;
+  console.log(starred)
+
   // Context
   const context = useContext(Context);
 
-  const { accessUser, users, setUsers } = context;
-  // console.log('this is context users');
-  // console.log(users);
+  const { addStars, accessUser, users, setUsers } = context;
 
   // Local State
   const [ clicked, setClicked ] = useState(false);
   const [ tag, setTag ] = useState('');
+
+  // Side Effects
+  useEffect(() => {
+    if (clicked === true && !starred) {
+      // console.log(user.starred_url);
+      const regex =/.*(?=((\{.*\}){2}))/gi;
+      const match = user.starred_url.match(regex)[0] || null;
+      addStars(match, user.index, users, setUsers);
+    }
+  }, [clicked])
+
 
   // Event handling
   const handleClick = () => setClicked(!clicked);
@@ -33,9 +44,24 @@ function ListEle({ children, user, ...props}) {
     <div className="tag" key={i}>{ tag }</div>
   )) : undefined;
 
+  const MapRepos = (repo) => {
+    const { name, url } = repo;
+    return (
+      <li>
+        <a href={ url } alt="URL to repository">{ name }</a>
+      </li>
+    )
+  };
+
+  const Starred = starred ? (
+    <ul>
+      { starred.map(MapRepos) }
+    </ul>
+  ) : undefined;
+
   const Expanded = (
     <div className="expanded-display">
-      { 'Hello World' }
+      { Starred }
       <div className="wrap--tag">
         { Tags }
       </div>
