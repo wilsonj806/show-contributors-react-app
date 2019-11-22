@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import Context from '../Context';
 
-function ListEle({ children, user, index, ...props}) {
-  const { login, html_url, contributions, id: githubId, tags } = user;
+function ListEle({ children, user, ...props}) {
+  const { login, html_url, contributions, index, tags } = user;
   // Context
   const context = useContext(Context);
 
@@ -21,8 +21,8 @@ function ListEle({ children, user, index, ...props}) {
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      console.log(index);
-      const newArr = accessUser(tag, parseInt(index), users);
+      // console.log(index);
+      const newArr = accessUser(tag, index, users);
       setUsers(d => newArr);
       setTag('');
     }

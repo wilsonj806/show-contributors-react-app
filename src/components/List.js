@@ -6,7 +6,7 @@ import './list.css';
 function List({ children, users = [], ...props }) {
   const ListEles = users.map((user, i) => {
     return (
-      <ListEle key={ i } user={ user } index={ i }/>
+      <ListEle key={ i } user={ user }/>
     )
   })
   return (

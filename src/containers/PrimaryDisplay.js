@@ -26,8 +26,9 @@ function Display() {
         // const myStorage = window.localStorage;
 
         // myStorage.setItem('ts-contrib', JSON.stringify(body));
-        console.log(body);
-        setUsers(body);
+        const arr = addIndexEntry(body);
+        console.log(arr);
+        setUsers(arr);
       // }
     }
 
@@ -134,6 +135,14 @@ function escapeSlash(str = '') {
   const regex = /\\/gi;
   const copy = str.replace(regex, '%5C');
   return copy;
+}
+
+function addIndexEntry(arr = []) {
+  const res = [...arr];
+  for (let i = 0; i < res.length; i++) {
+    res[i]["index"] = i
+  }
+  return res;
 }
 
 export default Display;
